@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log // 追加
 import android.view.View // 追加
 import androidx.appcompat.app.AlertDialog
+import android.app.TimePickerDialog
 import jp.techacademy.hiroto.ugajin.ui.databinding.ActivityMainBinding // 追加
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -19,12 +20,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding.button1.setOnClickListener(this)
         binding.button2.setOnClickListener(this)
+        binding.button3.setOnClickListener(this)
     }
 override fun onClick(v: View) {
     if (v.id == R.id.button1) {
         binding.textView.text = binding.editText.text.toString()
     } else if (v.id == R.id.button2) {
         showAlertDialog()
+    } else if (v.id == R.id.button3) {
+        showTimePickerDialog()
     }
 }
     private fun showAlertDialog() {
@@ -52,5 +56,15 @@ override fun onClick(v: View) {
         // AlertDialogを作成して表示する
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
+    }
+
+    private fun showTimePickerDialog() {
+        val timePickerDialog = TimePickerDialog(
+            this,
+            TimePickerDialog.OnTimeSetListener { view, hour, minute ->
+                Log.d("UI_PARTS", "$hour:$minute")
+            },
+            13, 0, true)
+        timePickerDialog.show()
     }
 }
