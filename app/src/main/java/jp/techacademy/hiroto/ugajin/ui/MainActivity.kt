@@ -6,6 +6,7 @@ import android.util.Log // 追加
 import android.view.View // 追加
 import androidx.appcompat.app.AlertDialog
 import android.app.TimePickerDialog
+import android.app.DatePickerDialog
 import jp.techacademy.hiroto.ugajin.ui.databinding.ActivityMainBinding // 追加
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -21,14 +22,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.button1.setOnClickListener(this)
         binding.button2.setOnClickListener(this)
         binding.button3.setOnClickListener(this)
+        binding.button4.setOnClickListener(this)
     }
 override fun onClick(v: View) {
-    if (v.id == R.id.button1) {
-        binding.textView.text = binding.editText.text.toString()
-    } else if (v.id == R.id.button2) {
-        showAlertDialog()
-    } else if (v.id == R.id.button3) {
-        showTimePickerDialog()
+    when (v.id) {
+        R.id.button1 -> binding.textView.text = binding.editText.text.toString()
+        R.id.button2 -> showAlertDialog()
+        R.id.button3 -> showTimePickerDialog()
+        R.id.button4 -> showDatePickerDialog()
     }
 }
     private fun showAlertDialog() {
@@ -66,5 +67,18 @@ override fun onClick(v: View) {
             },
             13, 0, true)
         timePickerDialog.show()
+    }
+
+    private fun showDatePickerDialog() {
+        val datePickerDialog = DatePickerDialog(
+            this,
+            DatePickerDialog.OnDateSetListener() { view, year, month, dayOfMonth ->
+                Log.d("UI_PARTS", "$year/${month + 1}/$dayOfMonth")
+            },
+            2023,
+            0,
+            15
+        )
+        datePickerDialog.show()
     }
 }
